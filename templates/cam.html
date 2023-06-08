@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Camera</title>
+    <style>
+        body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#video-input {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+}
+
+#video-canvas {
+    max-width: 480px;
+    max-height: 360px;
+}
+
+#camera-select {
+    margin-top: 16px;
+    padding: 8px;
+}
+
+#action-buttons {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+#snapshot-button,
+#resume-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#snapshot-button:hover,
+#resume-button:hover {
+    background-color: #45a049;
+}
+
+#snapshot-button:active,
+#resume-button:active {
+    background-color: #3e8e41;
+}
+
+#snapshot-button:focus,
+#resume-button:focus {
+    outline: none;
+}
+    </style>
+</head>
+<body>
+    <video id="video-input" autoplay></video>
+    <canvas id="video-canvas" width="480" height="360"></canvas>
+    <select name="Cameras" id="camera-select"></select>
+
+    <div id="action-buttons">
+        <button id="snapshot-button">Take Snapshot</button>
+        <button id="resume-button">Resume Video</button>
+    </div>
+
+    <script type="text/javascript" src="static/cam.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/cameraTest.js" charset="utf-8"></script>
+    
+</body>
+</html>
