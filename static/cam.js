@@ -59,56 +59,58 @@ class Cam {
       const videoWidth = videoProps.width;
       const videoHeight = videoProps.height;
       this._debug && console.log(`CAM: w: ${videoWidth}, h: ${videoHeight}`);
-  
+    
       const ratio = videoWidth / videoHeight;
       const canvasWidth = this._videoCanvas.width;
       const canvasHeight = this._videoCanvas.height;
-      let targetWidth, targetHeight;
-  
+      let targetWidth, targetHeight, xOffset, yOffset;
+    
       if (ratio > 1) {
         targetWidth = canvasWidth;
         targetHeight = canvasWidth / ratio;
+        xOffset = 0;
+        yOffset = (canvasHeight - targetHeight) / 2;
       } else {
         targetWidth = canvasHeight * ratio;
         targetHeight = canvasHeight;
+        xOffset = (canvasWidth - targetWidth) / 2;
+        yOffset = 0;
       }
-  
-      const x = (canvasWidth - targetWidth) / 2;
-      const y = (canvasHeight - targetHeight) / 2;
-  
+    
       this._debug && console.log(`TARGET: w: ${targetWidth}, h: ${targetHeight}`);
-      this._debug && console.log(`CAM: x-Offset: ${x}, y-Offset: ${y}, ratio: ${ratio}`);
-  
+      this._debug && console.log(`CAM: x-Offset: ${xOffset}, y-Offset: ${yOffset}, ratio: ${ratio}`);
+    
       const self = this;
-  
+    
       this._videoHTML.addEventListener("loadedmetadata", function () {
         self.update();
       });
-  
+    
       function drawVideoFrame() {
         self._videoCanvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
         if (self._snapshotImage === null) {
           self._videoCanvasContext.drawImage(
             self._videoHTML,
-            x,
-            y,
+            xOffset,
+            yOffset,
             targetWidth,
             targetHeight
           );
         } else {
           self._videoCanvasContext.drawImage(
             self._snapshotImage,
-            x,
-            y,
+            xOffset,
+            yOffset,
             targetWidth,
             targetHeight
           );
         }
         requestAnimationFrame(drawVideoFrame);
       }
-  
+    
       drawVideoFrame();
     }
+    
   
     update = () => {
       this._debug && console.log("Updating canvas");
